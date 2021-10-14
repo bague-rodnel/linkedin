@@ -45,7 +45,33 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 ## Styles
 
-Opted for styled-jsx. I didn't want
+I wanted to get rid of the wrapper element that normally goes with styled components esp. when using external styles.
+
+```
+import styled from 'styled-components';
+
+export const Wrapper = styled.div``;
+```
+
+The extra wrapper element gets in the way of semantically targeting the component for position-related css declarations since it sits between the flex item and the flex container.
+
+Although it was possible "internally" to avoid it like so,
+
+```
+const Component = ({ className }) => {
+  return (
+    <div className={className}>
+    </div>
+  )
+}
+
+export default styled(Component)`
+  /* wrapper styles */
+
+  /* children styles */
+`;
+
+... I still opted for styled jsx since it does the exact same thing and I personally think it's easier to follow and I plan to transition to Next.js which supports it out of the box.
 
 ## Firebase
 
@@ -58,3 +84,4 @@ Google analytics are disabled.
 ### Authentication
 
 Sign-in method of email/password is enabled.
+```
