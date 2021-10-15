@@ -1,11 +1,18 @@
 import React from "react";
-import { Wrapper } from "./styles";
 
 const Sidebar = ({ children }) => {
   return (
-    <Wrapper>
-      <div className="sidebar">{children}</div>
-    </Wrapper>
+    <div className="sidebar">
+      {children}
+
+      <style jsx>{`
+        .sidebar {
+          position: sticky;
+          top: 90px;
+          flex: 0.2;
+        }
+      `}</style>
+    </div>
   );
 };
 

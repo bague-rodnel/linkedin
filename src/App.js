@@ -1,8 +1,8 @@
-import { Counter } from "./features/counter/Counter";
 import "./App.css";
-import Header from "./components/Header/";
+import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
-import IdentityModule from "./components/IdentityModule";
+import CommunityPanel from "./components/Sidebar/CommunityPanel";
+import IdentityModule from "./components/Sidebar/IdentityModule";
 
 function App() {
   return (
@@ -13,6 +13,7 @@ function App() {
       <div className="app__body">
         <Sidebar>
           <IdentityModule />
+          <CommunityPanel />
         </Sidebar>
         {/* Feed */}
         {/* Widgets */}
