@@ -1,9 +1,12 @@
 import React from "react";
-import { Avatar } from "@mui/material";
 import MilitaryTechIcon from "@mui/icons-material/MilitaryTech";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import { selectUser } from "../../features/userSlice";
+import { useSelector } from "react-redux";
 
 const IdentityModule = () => {
+  const user = useSelector(selectUser);
+
   return (
     <div className="identityModule card">
       <section>
@@ -15,11 +18,8 @@ const IdentityModule = () => {
         </div>
         <a href="#">
           <div className="identity">
-            <img
-              className="identity__avatar"
-              src="https://media-exp1.licdn.com/dms/image/C5603AQFwAhd-3oZTIA/profile-displayphoto-shrink_800_800/0/1625237308256?e=1639612800&v=beta&t=C7jGuo1YGAixGxslxx1e9fVJT2XnE9kKpD5AkxHap58"
-            />
-            <p className="identity__name text--dark">Rodnel Bague</p>
+            <img className="identity__avatar" src={user.photoURL} />
+            <p className="identity__name text--dark">{user.displayName}</p>
             <p className="identity__headline">Full Stack Web Developer</p>
           </div>
         </a>
@@ -54,31 +54,32 @@ const IdentityModule = () => {
         </div>
       </section>
 
-      <section>
+      <section className="my-items dark--hover">
         <div className="flex--row--middle">
-          <span className="text--bold text--dark">
+          <div className="icon text--bold text--dark">
             <BookmarkIcon />
-          </span>
-          <span className="text--bold text--dark">My Items</span>
+          </div>
+          <div className="text--bold text--dark">My Items</div>
         </div>
       </section>
 
       <style jsx>{`
         .identityModule {
+          padding-top: 0;
+          padding-bottom: 0;
         }
 
-        section {
-          padding-top: 16px;
-          padding-bottom: 16px;
+        .identityModule section {
           border-top: 1px solid rgba(0, 0, 0, 0.1);
         }
 
-        section:first-child {
-          border: none;
+        .identityModule section {
+          padding-top: 16px;
+          padding-bottom: 16px;
         }
 
-        section div {
-          padding: 2px 0;
+        .identityModule section:first-child {
+          border-top: none;
         }
 
         .identity {
@@ -135,8 +136,8 @@ const IdentityModule = () => {
           color: var(--blue);
         }
 
-        .dark--hover:hover {
-          background: #dadada;
+        .my-items .icon {
+          margin-right: 8px;
         }
       `}</style>
     </div>

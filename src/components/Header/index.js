@@ -8,30 +8,47 @@ import SupervisorAccountIcon from "@mui/icons-material/SupervisorAccount";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import TextsmsIcon from "@mui/icons-material/Textsms";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import { useDispatch, useSelector } from "react-redux";
+import { auth } from "../../firebase";
+import { logout, selectUser } from "../../features/userSlice";
 
 const Header = () => {
+  const user = useSelector(selectUser);
+
+  const dispatch = useDispatch();
+
+  const logoutOfApp = () => {
+    dispatch(logout());
+    auth.signOut();
+  };
+
   return (
     <div className="header">
-      <div className="header__left">
-        <div className="header__logo">
-          <LinkedInIcon />
-        </div>
-        <div className="header__search">
-          <SearchIcon />
-          <input type="text" placeholder="Search" />
-        </div>
-      </div>
-      <div className="header__right">
-        <HeaderOption Icon={HomeIcon} title="Home" />
-        <HeaderOption Icon={SupervisorAccountIcon} title="My Network" />
-        <HeaderOption Icon={BusinessCenterIcon} title="Jobs" />
-        <HeaderOption Icon={TextsmsIcon} title="Messaging" />
-        <HeaderOption Icon={NotificationsIcon} title="Notifications" />
-        <HeaderOption
-          avatar="https://media-exp1.licdn.com/dms/image/C5603AQFwAhd-3oZTIA/profile-displayphoto-shrink_800_800/0/1625237308256?e=1639612800&v=beta&t=C7jGuo1YGAixGxslxx1e9fVJT2XnE9kKpD5AkxHap58"
-          title="Me"
-        />
-      </div>
+      {user && (
+        <>
+          <div className="header__left">
+            <div className="header__logo">
+              <LinkedInIcon />
+            </div>
+            <div className="header__search">
+              <SearchIcon />
+              <input type="text" placeholder="Search" />
+            </div>
+          </div>
+          <div className="header__right">
+            <HeaderOption Icon={HomeIcon} title="Home" />
+            <HeaderOption Icon={SupervisorAccountIcon} title="My Network" />
+            <HeaderOption Icon={BusinessCenterIcon} title="Jobs" />
+            <HeaderOption Icon={TextsmsIcon} title="Messaging" />
+            <HeaderOption Icon={NotificationsIcon} title="Notifications" />
+            <HeaderOption
+              avatar={user.photoURL}
+              title="Logout"
+              onClick={logoutOfApp}
+            />
+          </div>
+        </>
+      )}
 
       <style jsx>{`
         .header {
